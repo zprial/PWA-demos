@@ -1,0 +1,22 @@
+{
+  "name": "pwa-demos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "serve demos"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zprial/PWA-demos.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zprial/PWA-demos/issues"
+  },
+  "homepage": "https://github.com/zprial/PWA-demos#readme",
+  "devDependencies": {
+    "serve": "^11.0.1"
+  }
+}
