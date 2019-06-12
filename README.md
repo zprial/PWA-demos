@@ -1,6 +1,8 @@
 # PWA-demos
 
 * ServiceWorker
+* Manifest
+* Add to Home Screen
 
 ## 参考资料
 
@@ -13,3 +15,5 @@
 * [PWA学习手册](https://pwa.alienzhou.com/)
 * [图标和浏览器颜色](https://developers.google.com/web/fundamentals/design-and-ux/browser-customization/)
 * [Manifest](https://developer.mozilla.org/en-US/docs/Web/Manifest)
+
+* [Add to Home Screen](https://developers.google.com/web/fundamentals/app-install-banners/)
