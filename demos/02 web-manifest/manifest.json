@@ -1,0 +1,17 @@
+{
+  "short_name": "Manifest",
+  "name": "Hello Manifest",
+  "start_url": "./",
+  "background_color": "#61DAFB",
+  "display": "standalone",
+  "theme_color": "#61DAFB",
+  "icons": [{
+    "src": "/public/icon_128.png",
+    "type": "image/png",
+    "sizes": "128x128"
+  }, {
+    "src": "/public/icon_512.png",
+    "type": "image/png",
+    "sizes": "512x512"
+  }]
+}
