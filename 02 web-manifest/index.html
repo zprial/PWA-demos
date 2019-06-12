@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>My first web manifest</title>
+  <link rel="stylesheet" href="/02%20web-manifest/index.css">
+  <link rel="manifest" href="/02%20web-manifest/manifest.json">
+  <!-- icon in the highest resolution we need it for -->
+  <link rel="icon" sizes="128x128" href="/public/icon_128.png">
+  <!-- reuse same icon for Safari -->
+  <link rel="apple-touch-icon" href="/public/icon_128.png">
+  <meta name="apple-mobile-web-app-title" content="Manifest iOS">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <!-- Chrome, Firefox OS and Opera -->
+  <meta name="theme-color" content="#61dafb">
+</head>
+<body>
+  <div id="root">
+    <img src="/public/logo.svg"/>
+    <h1>Hello Manifest</h1>
+    <a href="/01 service-worker" target="_blank">click me</a>
+  </div>
+  <script>
+    // 注册 Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/02%20web-manifest/service-worker.js')
+          .then(res => {
+            console.log('Service Worker registered', res)
+          })
+          .catch(err => {
+            console.log('Servie Worker regist failed', err)
+          })
+      })
+    }
+  </script>
+</body>
+</html>

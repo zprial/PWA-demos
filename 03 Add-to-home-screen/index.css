@@ -1,0 +1,55 @@
+* {
+  margin: 0;
+}
+html,
+body {
+  height: 100%;
+  background-color: #61dafb;
+}
+#root {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #61dafb;
+  position: relative;
+  overflow: hidden;
+}
+
+#button {
+  position: absolute;
+  background-color: #61dafb;
+  border: 0;
+  color: #fff;
+  -webkit-appearance: none;
+  font-size: 18px;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
+  padding: 10px 0;
+  transform: translateY(100%);
+  transition: transform .3s ease;
+}
+
+#button.show {
+  transform: translateY(0);
+}
+
+/* 如果是从独立模式启动的，也可以表示从桌面icon启动的 */
+@media all and (display-mode: standalone) {
+  img {
+    animation: spin 5s linear infinite;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

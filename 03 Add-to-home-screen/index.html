@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Add to Home Screen</title>
+  <link rel="stylesheet" href="/03 Add-to-home-screen/index.css">
+  <link rel="manifest" href="/03 Add-to-home-screen/manifest.json">
+  <!-- icon in the highest resolution we need it for -->
+  <link rel="icon" sizes="128x128" href="/public/icon_128.png">
+  <!-- reuse same icon for Safari -->
+  <link rel="apple-touch-icon" href="/public/icon_128.png">
+  <meta name="apple-mobile-web-app-title" content="Manifest iOS">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <!-- Chrome, Firefox OS and Opera -->
+  <meta name="theme-color" content="#61dafb">
+</head>
+<body>
+  <div id="root">
+    <img src="/public/logo_white.svg"/>
+    <h1 style="color: #fff">Add To Home Screen</h1>
+    <!-- 添加到主屏按钮 -->
+    <button id="button">Add To Home Screen</button>
+  </div>
+  <script src="/03 Add-to-home-screen/install.js"></script>
+  <script>
+    // 注册 Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/03 Add-to-home-screen/service-worker.js')
+          .then(res => {
+            console.log('Service Worker registered', res)
+          })
+          .catch(err => {
+            console.log('Servie Worker regist failed', err)
+          })
+      })
+    }
+
+    // 可以在js中判断处在什么模式，等同于css中的 `@media all and (display-mode: standalone)`
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      console.log('display-mode is standalone');
+    }
+    // safari 中判断独立模式
+    // if (window.navigator.standalone === true) {
+    //   console.log('display-mode is standalone');
+    // }
+  </script>
+</body>
+</html>
