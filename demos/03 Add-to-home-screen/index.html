@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Add to Home Screen</title>
-  <link rel="stylesheet" href="/03 Add-to-home-screen/index.css">
-  <link rel="manifest" href="/03 Add-to-home-screen/manifest.json">
+  <link rel="stylesheet" href="./index.css">
+  <link rel="manifest" href="./manifest.json">
   <!-- icon in the highest resolution we need it for -->
   <link rel="icon" sizes="128x128" href="/public/icon_128.png">
   <!-- reuse same icon for Safari -->
@@ -24,12 +24,12 @@
     <!-- 添加到主屏按钮 -->
     <button id="button">Add To Home Screen</button>
   </div>
-  <script src="/03 Add-to-home-screen/install.js"></script>
+  <script src="./install.js"></script>
   <script>
     // 注册 Service Worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/03 Add-to-home-screen/service-worker.js')
+        navigator.serviceWorker.register('./service-worker.js')
           .then(res => {
             console.log('Service Worker registered', res)
           })

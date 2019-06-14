@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>My first web manifest</title>
-  <link rel="stylesheet" href="/02%20web-manifest/index.css">
-  <link rel="manifest" href="/02%20web-manifest/manifest.json">
+  <link rel="stylesheet" href="./index.css">
+  <link rel="manifest" href="./manifest.json">
   <!-- icon in the highest resolution we need it for -->
   <link rel="icon" sizes="128x128" href="/public/icon_128.png">
   <!-- reuse same icon for Safari -->
@@ -27,7 +27,7 @@
     // 注册 Service Worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/02%20web-manifest/service-worker.js')
+        navigator.serviceWorker.register('./service-worker.js')
           .then(res => {
             console.log('Service Worker registered', res)
           })
