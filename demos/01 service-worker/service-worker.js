@@ -1,7 +1,7 @@
 // here is service worker scope
 
-function log(arguments) {
-  console.log('[ServiceWorker]', arguments)
+function log(...arguments) {
+  console.log('[ServiceWorker]', ...arguments)
 }
 
 // 缓存名

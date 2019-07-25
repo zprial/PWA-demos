@@ -5,7 +5,7 @@ function log(...arguments) {
 }
 
 // 缓存名
-const CACHE_NAME = "manifest-cache-v1"
+const CACHE_NAME = "push-api-chache-v2"
 
 // 缓存资源
 const urlToCache = [
@@ -16,6 +16,7 @@ const urlToCache = [
 // 安装
 self.addEventListener('install', evt => {
   log('1. install')
+  self.skipWaiting()
 
   // What does event.waitUntil do in service worker and why is it needed?
   // https://stackoverflow.com/questions/37902441/what-does-event-waituntil-do-in-service-worker-and-why-is-it-needed
@@ -85,5 +86,55 @@ self.addEventListener('fetch', evt => {
           return response
         })
       })
+  )
+})
+
+// 监听推送
+self.addEventListener('push', (evt) => {
+  log('Push Received')
+  log('Push had this data: ', evt.data.text())
+
+  // 构建push样式
+  const title = "push标题"
+  const options = {
+    body: evt.data.text(),
+    icon: '/public/icon_128.png',
+    badge: '/public/avatar.png',
+    // 自定义操作
+    actions: [{
+      action: 'show-book',
+      title: '去看看'
+    }, {
+        action: 'contact-me',
+        title: '联系我'
+    }],
+  }
+
+  evt.waitUntil(
+    self.registration.showNotification(title, options)
+  )
+})
+
+// 监听推送点击
+self.addEventListener('notificationclick', evt => {
+  const action = evt.action
+  log('Notification click Received.', evt)
+
+  evt.notification.close()
+
+  // 可以根据自定义行为触发不同的动作
+  log('notificationclick action:', action)
+  switch(action) {
+    case 'show-book':
+    case 'contact-me':
+      return
+    default:
+      log('notificationclick action default')
+      break;
+  }
+
+  // 调用 event.waitUntil()，确保浏览器不会在显示新窗口前终止服务工作线程。
+  evt.waitUntil(
+    clients.openWindow('/')
   )
 })

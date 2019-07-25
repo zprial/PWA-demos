@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Web Push</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="manifest" href="./manifest.json">
+  <!-- icon in the highest resolution we need it for -->
+  <link rel="icon" sizes="128x128" href="/public/icon_128.png">
+  <!-- reuse same icon for Safari -->
+  <link rel="apple-touch-icon" href="/public/icon_128.png">
+  <meta name="apple-mobile-web-app-title" content="Manifest iOS">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <!-- Chrome, Firefox OS and Opera -->
+  <meta name="theme-color" content="#61dafb">
+</head>
+<body>
+  <div id="root">
+    <img src="/public/logo_white.svg"/>
+    <!-- 允许/禁止接收push -->
+    <button id="btn-push">Push Api</button>
+    <!-- 添加到主屏按钮 -->
+    <button id="button">Add To Home Screen</button>
+  </div>
+  <!-- 添加到屏幕逻辑 -->
+  <script src="./install.js"></script>
+  <!-- web push逻辑 -->
+  <script src="./main.js"></script>
+</body>
+</html>
