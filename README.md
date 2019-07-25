@@ -22,3 +22,10 @@
 * [Add to Home Screen](https://developers.google.com/web/fundamentals/app-install-banners/)
 
 * [向网络应用添加推送通知](https://developers.google.com/web/fundamentals/codelabs/push-notifications/?hl=zh-cn#%E4%B8%8B%E8%BD%BD%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81)
+
+## server.js 接口说明
+
+* POST /subscription: 订阅推送
+* GET /subscriptions: 获取所有已保存的的用户推送信息
+* POST /push: 向单个用户推送
+* POST /push/total: 向多个用户推送
