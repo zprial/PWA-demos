@@ -87,7 +87,7 @@ router.post('/push', async ctx => {
 
 // 向所有客户端推送
 router.post('/push/total', async ctx => {
-  const { bornIds = [], payload } = ctx.request.body;
+  const { bornIds = Object.keys(cacheSubscription), payload } = ctx.request.body;
   bornIds.forEach(async bornId => {
     const subscription = cacheSubscription[bornId];
     if (subscription) {
