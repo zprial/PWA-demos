@@ -4,6 +4,7 @@ const Router = require('koa-router');
 const koaBody = require('koa-body');
 const webpush = require('web-push');
 const session = require('koa-session');
+const favicon = require('koa-favicon');
 const glob = require('glob');
 
 const app = new Koa();
@@ -105,6 +106,28 @@ router.post('/push/total', async ctx => {
   ctx.response.body = '已发起推送';
 });
 
+// 响应客户端同步事件
+router.post('/sync', async ctx => {
+  const { tag, payload = {} } = ctx.request.body;
+  console.log("收到客户端同步事件:", ctx.request.body)
+  if (tag === 'tag-submit-name') {
+    if (ctx.session && ctx.session.bornId) {
+      const subscription = cacheSubscription[ctx.session.bornId];
+      if (subscription) {
+        try {
+          const data = await webpush.sendNotification(subscription, `hello ${payload.name}`);
+          ctx.response.body = data;
+          return
+        } catch (error) {
+          console.log('推送失败:', error)
+        }
+      }
+    }
+    ctx.response.body = `hello ${payload.name}`
+    return
+  }
+  ctx.response.body = 'ok'
+})
 
 app.keys = ['hello world'];
 app.use(
@@ -120,6 +143,7 @@ app.use(
 app.use(koaBody());
 app.use(router.routes());
 app.use(serve(__dirname + '/demos'));
+app.use(favicon(__dirname + '/demos/public/favicon.ico'))
 app.listen(8000, () => {
   console.log(`service start: http://localhost:8000`);
 });
