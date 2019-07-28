@@ -5,6 +5,7 @@
 * Add to Home Screen
 * Push Api
 * Web Notifications
+* Background Sync
 
 ## 参考资料
 
