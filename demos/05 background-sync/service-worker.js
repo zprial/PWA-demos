@@ -1,25 +1,7 @@
 // here is service worker scope
 
-// 简单的EventBus
-class SimpleEvent {
-  constructor() {
-      this.listenrs = {};
-  }
-
-  once(tag, cb) {
-      this.listenrs[tag] || (this.listenrs[tag] = []);
-      this.listenrs[tag].push(cb);
-  }
-
-  trigger(tag, data) {
-      this.listenrs[tag] = this.listenrs[tag] || [];
-      let listenr;
-      while (listenr = this.listenrs[tag].shift()) {
-          listenr(data)
-      }
-  }
-}
-const simpleEvent = new SimpleEvent()
+// 创建消息通道
+const msgChannel = new MessageChannel();
 
 function log(...arguments) {
   console.log('[ServiceWorker]', ...arguments)
@@ -48,8 +30,6 @@ const urlToCache = [
 // 安装
 self.addEventListener('install', evt => {
   log('1. install')
-  evt.waitUntil(self.skipWaiting())
-
   // What does event.waitUntil do in service worker and why is it needed?
   // https://stackoverflow.com/questions/37902441/what-does-event-waituntil-do-in-service-worker-and-why-is-it-needed
   evt.waitUntil(
@@ -62,6 +42,7 @@ self.addEventListener('install', evt => {
         return cache.addAll(urlToCache)
       })
   )
+  evt.waitUntil(self.skipWaiting())
 })
 
 // 激活
@@ -174,10 +155,8 @@ self.addEventListener('notificationclick', evt => {
 // 监听message事件, 本demo中，提交按钮会postMessage
 self.addEventListener('message', evt => {
   const data = JSON.parse(evt.data);
-  const type = data.type;
-  const msg = data.msg;
-  console.log(`service worker收到消息 type：${type}；msg：${JSON.stringify(msg)}`);
-  simpleEvent.trigger(type, msg);
+  console.log(`service worker收到消息：${evt.data}`);
+  msgChannel.port1.postMessage(data);
 })
 
 
@@ -186,13 +165,12 @@ self.addEventListener('message', evt => {
 self.addEventListener('sync', evt => {
   console.log(`service worker需要进行后台同步，tag: ${evt.tag}`);
 
-  // 通过 simpleEvent 来传递 onMessage 的数据
-  // 将SimpleEvent.once封装为Promise调用
+  // 通过 MessageChannel 来传递 onMessage 的数据
   const msgPromise = new Promise(function (resolve, reject) {
-    // 监听message事件中触发的事件通知
-    simpleEvent.once('sync', function (data) {
-        resolve(data);
-    });
+    msgChannel.port2.onmessage = e => {
+      console.log('channel port2 接收数据：', e)
+      resolve(e.data);
+    }
     // 五秒超时
     setTimeout(resolve, 5000);
   });

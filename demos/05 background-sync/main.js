@@ -36,11 +36,8 @@ if ('serviceWorker' in navigator  && 'PushManager' in window && 'SyncManager' in
         registration.sync.register('tag-submit-name').then(() => {
           console.log(nameInput.value)
           const data = JSON.stringify({
-            type: 'sync',
-            msg: {
-              tag: 'tag-submit-name',
-              payload: { name: nameInput.value }
-            }
+            tag: 'tag-submit-name',
+            payload: { name: nameInput.value }
           });
           navigator.serviceWorker.controller.postMessage(data);
           console.log('tag-submit-name 后台同步已开启')
