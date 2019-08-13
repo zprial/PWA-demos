@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Background Sync</title>
+    <link rel="manifest" href="/public/manifest.json" />
+    <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon" />
+    <!-- icon in the highest resolution we need it for -->
+    <link rel="icon" sizes="128x128" href="/public/icon_128.png" />
+    <!-- reuse same icon for Safari -->
+    <link rel="apple-touch-icon" href="/public/icon_128.png" />
+    <meta name="apple-mobile-web-app-title" content="Manifest iOS" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#61dafb" />
+    <style>
+      * {
+        margin: 0;
+      }
+      html,
+      body {
+        height: 100%;
+        background-color: #61dafb;
+      }
+      #root {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        color: #61dafb;
+        position: relative;
+        overflow: hidden;
+      }
+
+      #button {
+        position: absolute;
+        background-color: #61dafb;
+        border: 0;
+        color: #fff;
+        -webkit-appearance: none;
+        font-size: 18px;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        width: 100%;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
+        padding: 10px 0;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+      }
+
+      #button.show {
+        transform: translateY(0);
+      }
+
+      #btn-push {
+        border: 0;
+        background-color: rgba(0, 0, 0, 0);
+        color: #fff;
+        font-size: 32px;
+      }
+
+      /* 如果是从独立模式启动的，也可以表示从桌面icon启动的 */
+      @media all and (display-mode: standalone) {
+        img {
+          animation: spin 5s linear infinite;
+        }
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      #form {
+        display: flex;
+        height: 30px;
+        margin-top: 20px;
+      }
+      #submit {
+        border: 1px solid #fff;
+        background-color: transparent;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <img src="/public/logo_white.svg" style="max-height: 50vh" />
+      <!-- 允许/禁止接收push -->
+      <button id="btn-push">Push Api</button>
+      <!-- 添加到主屏按钮 -->
+      <button id="button">Add To Home Screen</button>
+      <!-- 提交文本 -->
+      <div id="form">
+        <input placeholder="what's your name" id="name" />
+        <button id="submit">Submit</button>
+      </div>
+    </div>
+    <!-- 添加到屏幕逻辑 -->
+    <!-- <script src="./install.js"></script> -->
+    <!-- web push逻辑 -->
+    <!-- <script src="./main.js"></script> -->
+  </body>
+</html>
