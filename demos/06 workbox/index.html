@@ -36,7 +36,7 @@
         overflow: hidden;
       }
 
-      #button {
+      #button--install {
         position: absolute;
         background-color: #61dafb;
         border: 0;
@@ -53,7 +53,7 @@
         transition: transform 0.3s ease;
       }
 
-      #button.show {
+      #button--install.show {
         transform: translateY(0);
       }
 
@@ -84,8 +84,13 @@
         display: flex;
         height: 30px;
         margin-top: 20px;
+        width: 80%;
+        max-width: 320px;
       }
-      #submit {
+      #name {
+        flex: 1;
+      }
+      #button--sync {
         border: 1px solid #fff;
         background-color: transparent;
       }
@@ -94,14 +99,15 @@
   <body>
     <div id="root">
       <img src="/public/logo_white.svg" style="max-height: 50vh" />
+      <p style="color: #fff;">Workbox</p>
       <!-- 允许/禁止接收push -->
       <button id="btn-push">Push Api</button>
       <!-- 添加到主屏按钮 -->
-      <button id="button">Add To Home Screen</button>
+      <button id="button--install">Add To Home Screen</button>
       <!-- 提交文本 -->
       <div id="form">
         <input placeholder="what's your name" id="name" />
-        <button id="submit">Submit</button>
+        <button id="button--sync">Submit</button>
       </div>
     </div>
     <!-- 添加到屏幕逻辑 -->

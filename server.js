@@ -27,7 +27,7 @@ webpush.setVapidDetails(
 );
 
 // 查找所有 html 页面
-const htmls = glob.sync('demos/**/*.html');
+const htmls = glob.sync('demos/*/index.html');
 
 router.get('/', async (ctx) => {
   ctx.response.body = `
@@ -47,26 +47,27 @@ router.get('/', async (ctx) => {
 })
 
 // 存储 subscription
-router.post('/subscription', ctx => {
+router.post('/api/subscription', ctx => {
+  if (!ctx.session.bornId) {
+    ctx.session.bornId = Date.now()
+  }
   if (ctx.session && ctx.session.bornId) {
     if (ctx.request.body.subscription) {
       cacheSubscription[ctx.session.bornId] = ctx.request.body.subscription;
     } else {
       delete cacheSubscription[ctx.session.bornId];
     }
-  } else {
-    ctx.session.bornId = Date.now()
   }
   ctx.response.body = 'ok'
 });
 
 // 获取所有订阅数据
-router.get('/subscriptions', ctx => {
+router.get('/api/subscriptions', ctx => {
   ctx.response.body = cacheSubscription;
 })
 
 // 向客户端推送
-router.post('/push', async ctx => {
+router.post('/api/push', async ctx => {
   const { bornId, payload } = ctx.request.body;
   const subscription = cacheSubscription[bornId];
   if (subscription) {
@@ -87,7 +88,7 @@ router.post('/push', async ctx => {
 });
 
 // 向所有客户端推送
-router.post('/push/total', async ctx => {
+router.post('/api/push/total', async ctx => {
   const { bornIds = Object.keys(cacheSubscription), payload } = ctx.request.body;
   bornIds.forEach(async bornId => {
     const subscription = cacheSubscription[bornId];
@@ -107,7 +108,7 @@ router.post('/push/total', async ctx => {
 });
 
 // 响应客户端同步事件
-router.post('/sync', async ctx => {
+router.post('/api/sync', async ctx => {
   const { tag, payload = {} } = ctx.request.body;
   console.log("收到客户端同步事件:", ctx.request.body)
   if (tag === 'tag-submit-name') {
@@ -123,10 +124,10 @@ router.post('/sync', async ctx => {
         }
       }
     }
-    ctx.response.body = `hello ${payload.name}`
+    ctx.response.body = `您提交了: ${payload.name}`
     return
   }
-  ctx.response.body = 'ok'
+  ctx.response.body = payload ? payload.name : 'ok'
 })
 
 app.keys = ['hello world'];

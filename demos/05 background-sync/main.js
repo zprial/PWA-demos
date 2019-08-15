@@ -128,7 +128,7 @@ function unsubscribePush() {
 function updateSubscriptionOnServer(subscription) {
   console.log('updateSubscriptionOnServer:', subscription)
   console.log(JSON.stringify(subscription))
-  fetch('/subscription', {
+  fetch('/api/subscription', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

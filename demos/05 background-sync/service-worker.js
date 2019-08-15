@@ -8,7 +8,7 @@ function log(...arguments) {
 }
 
 // 构造后台同步请求
-function newRequest(url = '/sync', body = '') {
+function newRequest(url = '/api/sync', body = '') {
   return new Request(url, {
     method: 'POST',
     headers: {
@@ -180,7 +180,7 @@ self.addEventListener('sync', evt => {
     // 提交姓名
     evt.waitUntil(
       msgPromise.then(data => {
-        let request = newRequest('/sync', JSON.stringify(data))
+        let request = newRequest('/api/sync', JSON.stringify(data))
         fetch(request)
       })
     )
