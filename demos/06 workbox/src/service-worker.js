@@ -23,10 +23,10 @@ workbox.routing.registerRoute(
   new workbox.strategies.CacheFirst({
     cacheName: 'img-cache',
     plugins: [
-      new workbox.expiration.Plugin({
-        maxEntries: 60,
-        maxAgeSeconds: 60 // 60s
-      })
+      // new workbox.expiration.Plugin({
+      //   maxEntries: 60,
+      //   maxAgeSeconds: 60 // 60s
+      // })
     ]
   })
 );
